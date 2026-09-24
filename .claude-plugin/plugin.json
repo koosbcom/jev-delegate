@@ -1,0 +1,19 @@
+{
+  "name": "jev-delegate",
+  "version": "0.1.0",
+  "description": "Reduce Claude Code token use with Jev-backed search ranking and classification.",
+  "author": {
+    "name": "Sergio Cleto"
+  },
+  "homepage": "https://github.com/koosbcom/jev-delegate",
+  "repository": "https://github.com/koosbcom/jev-delegate",
+  "license": "MIT",
+  "keywords": ["mcp", "classification", "search", "openrouter"],
+  "skills": "./skills/",
+  "mcpServers": {
+    "jev_delegate": {
+      "command": "node",
+      "args": ["${CLAUDE_PLUGIN_ROOT}/dist/server.js"]
+    }
+  }
+}
