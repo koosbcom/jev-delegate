@@ -63,6 +63,16 @@ claude --plugin-dir /path/to/jev-delegate
 
 Export `OPENROUTER_API_KEY` in the shell that starts `claude`, as shown above. Claude Code exposes the project directory as the MCP workspace root, so `JEV_DELEGATE_WORKSPACE_ROOT` is not needed. Check registration with `claude mcp list` or `/mcp`. Telemetry goes to the same `~/.codex/state/jev-delegate/usage.jsonl` path unless `JEV_DELEGATE_TELEMETRY_PATH` is set.
 
+### Jev tool routing (Claude Code)
+
+The plugin also installs a `PreToolUse` hook (`hooks/hooks.json` → `dist/route-hook.js`) that sends every tool call to Jev before it runs. Jev sees the latest user request, the proposed tool, and its input (truncated to 4,000 characters), and picks the best-suited tool:
+
+- Jev keeps the proposed tool → no decision; normal Claude Code permissions apply. The hook never auto-approves.
+- Jev picks another tool at confidence `>= 0.80` → the call is denied with a redirect, and Claude retries with Jev's tool. Repeating the same call afterwards asks the user instead of looping.
+- Jev is unsure, unavailable (no key, timeout, spend guard), or the call looks secret-bearing → the user is asked.
+
+Jev's own tools and task bookkeeping tools skip routing. Set `JEV_DELEGATE_ROUTING=off` to disable it, for example in headless `claude -p` runs without a key, where "ask" blocks the call. With the manual `claude mcp add` install, add the same hook to `~/.claude/settings.json`, replacing `${CLAUDE_PLUGIN_ROOT}` with the repository path. Routing adds one Jev request, with latency, to every tool call and counts toward the daily spend guard; raise `JEV_DELEGATE_MAX_DAILY_USD` for long sessions.
+
 Opening this repository itself in Claude Code also offers the project `.mcp.json` server; it fails to start until `npm run build` has created `dist/`.
 
 ## When to use

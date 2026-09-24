@@ -21,6 +21,10 @@ Delegate narrow decisions. Jev judges supplied evidence; it does not retrieve or
 - Preserve `truncated` warnings. Narrow patterns or continue deliberately; never imply full coverage.
 - Never infer explanations from Jev probabilities. Report only labels, rankings, supplied evidence, and uncertainty.
 
+## Tool routing
+
+In Claude Code the plugin hook routes every tool call through Jev first. When a call is denied with "Jev routed this action to X", retry the same action with X. Repeat the original call only when X cannot do the job; the user is then asked.
+
 ## Boundaries
 
 Tools are read-only and limited to the current workspace. They exclude ignored, hidden, binary, credential, key, and secret-like content. A user request for `local only` disables Jev for that task.

@@ -4,7 +4,7 @@ import type { Config } from "./config.js";
 
 export type UsageEvent = {
   timestamp: string;
-  tool: "search_and_rank" | "classify_items";
+  tool: "search_and_rank" | "classify_items" | "route_tool";
   status: "ok" | "fallback" | "error";
   latency_ms: number;
   candidate_count: number;
