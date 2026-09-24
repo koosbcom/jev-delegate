@@ -1,10 +1,10 @@
-# Jev Delegate for Codex
+# Jev Delegate for Codex and Claude Code
 
-Jev Delegate gives Codex two local MCP tools: `search_and_rank` ranks large `rg` result sets, and `classify_items` assigns caller-defined labels to English text. Local search collects candidates; [TypeSafe Jev through OpenRouter](https://openrouter.ai/typesafe/jev-1.13) judges them. It cannot browse, write code, summarize, or act as a general subagent.
+Jev Delegate gives Codex and Claude Code two local MCP tools: `search_and_rank` ranks large `rg` result sets, and `classify_items` assigns caller-defined labels to English text. Local search collects candidates; [TypeSafe Jev through OpenRouter](https://openrouter.ai/typesafe/jev-1.13) judges them. It cannot browse, write code, summarize, or act as a general subagent.
 
-Each installation uses its own `OPENROUTER_API_KEY`. No key belongs in this repository or a Codex prompt. OpenRouter may charge for requests.
+Each installation uses its own `OPENROUTER_API_KEY`. No key belongs in this repository or an agent prompt. OpenRouter may charge for requests.
 
-## Install
+## Install for Codex
 
 Requires Node.js 20+, npm, `rg`, and Codex CLI. Get your own OpenRouter key from [OpenRouter](https://openrouter.ai/settings/keys).
 
@@ -35,6 +35,35 @@ unset OPENROUTER_API_KEY
 ```
 
 Start a new Codex task after installation. If your MCP client does not expose workspace roots, set `JEV_DELEGATE_WORKSPACE_ROOT` to the project directory in the Codex process environment. Check registration with `codex mcp list`.
+
+## Install for Claude Code
+
+Requires Node.js 20+, npm, `rg`, and Claude Code. Build once:
+
+```sh
+git clone https://github.com/koosbcom/jev-delegate.git
+cd jev-delegate
+npm ci
+npm run check
+```
+
+Register the MCP server and the skill for every project:
+
+```sh
+claude mcp add --scope user jev_delegate -- node "$PWD/dist/server.js"
+mkdir -p ~/.claude/skills
+cp -R skills/jev-delegate ~/.claude/skills/
+```
+
+Or load the repository as a plugin for one session. `.claude-plugin/plugin.json` bundles the skill and the MCP server:
+
+```sh
+claude --plugin-dir /path/to/jev-delegate
+```
+
+Export `OPENROUTER_API_KEY` in the shell that starts `claude`, as shown above. Claude Code exposes the project directory as the MCP workspace root, so `JEV_DELEGATE_WORKSPACE_ROOT` is not needed. Check registration with `claude mcp list` or `/mcp`. Telemetry goes to the same `~/.codex/state/jev-delegate/usage.jsonl` path unless `JEV_DELEGATE_TELEMETRY_PATH` is set.
+
+Opening this repository itself in Claude Code also offers the project `.mcp.json` server; it fails to start until `npm run build` has created `dist/`.
 
 ## When to use
 

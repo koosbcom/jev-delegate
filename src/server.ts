@@ -66,7 +66,7 @@ async function workspaceRoot(): Promise<string> {
     // Older clients may not expose roots. Explicit operator config is the only fallback.
   }
   const configured = process.env.JEV_DELEGATE_WORKSPACE_ROOT;
-  if (!configured) throw new Error("Codex did not expose a workspace root; set JEV_DELEGATE_WORKSPACE_ROOT");
+  if (!configured) throw new Error("MCP client did not expose a workspace root; set JEV_DELEGATE_WORKSPACE_ROOT");
   return realpath(configured);
 }
 
