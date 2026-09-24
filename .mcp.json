@@ -1,0 +1,29 @@
+{
+  "mcpServers": {
+    "jev_delegate": {
+      "command": "node",
+      "args": ["dist/server.js"],
+      "cwd": ".",
+      "enabled": true,
+      "env_vars": [
+        "OPENROUTER_API_KEY",
+        "JEV_DELEGATE_MODEL",
+        "JEV_DELEGATE_RELEVANCE_LOW",
+        "JEV_DELEGATE_RELEVANCE_HIGH",
+        "JEV_DELEGATE_MAX_ITEMS",
+        "JEV_DELEGATE_MAX_CALL_USD",
+        "JEV_DELEGATE_MAX_DAILY_USD",
+        "JEV_DELEGATE_TELEMETRY",
+        "JEV_DELEGATE_TELEMETRY_PATH",
+        "JEV_DELEGATE_WORKSPACE_ROOT"
+      ],
+      "startup_timeout_sec": 10,
+      "tool_timeout_sec": 30,
+      "default_tools_approval_mode": "approve",
+      "tools": {
+        "search_and_rank": { "output_token_limit": 4096 },
+        "classify_items": { "output_token_limit": 4096 }
+      }
+    }
+  }
+}

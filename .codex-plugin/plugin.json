@@ -1,0 +1,22 @@
+{
+  "name": "jev-delegate",
+  "version": "0.1.0",
+  "description": "Reduce Codex token use with Jev-backed search ranking and classification.",
+  "author": {
+    "name": "Sergio Cleto"
+  },
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Jev Delegate",
+    "shortDescription": "Cheap typed ranking and classification",
+    "longDescription": "Runs deterministic workspace search locally, sends only screened snippets or supplied items to Jev, and returns compact typed decisions with confidence and cost metadata.",
+    "developerName": "Sergio Cleto",
+    "category": "Productivity",
+    "capabilities": ["Read", "Classification", "Search"],
+    "defaultPrompt": [
+      "Rank a large workspace search with Jev.",
+      "Classify these items into fixed labels."
+    ]
+  },
+  "mcpServers": "./.mcp.json"
+}

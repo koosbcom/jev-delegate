@@ -1,0 +1,27 @@
+{
+  "name": "jev-delegate",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Local MCP tools for Jev-backed workspace search ranking and classification.",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/server.js",
+    "test": "vitest run",
+    "test:live": "JEV_DELEGATE_LIVE=1 vitest run tests/live.test.ts",
+    "typecheck": "tsc -p tsconfig.test.json --noEmit",
+    "check": "npm run typecheck && npm run build && npm test"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "1.30.0",
+    "zod": "4.6.5"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "7.0.2",
+    "vitest": "5.0.1"
+  }
+}

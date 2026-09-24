@@ -1,0 +1,12 @@
+interface:
+  display_name: "Jev Delegate"
+  short_description: "Cheap typed ranking and classification"
+  default_prompt: "Use $jev-delegate to filter large workspace searches or classify supplied items."
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "jev_delegate"
+      description: "Local Jev decision tools"
+      transport: "stdio"
+policy:
+  allow_implicit_invocation: true
